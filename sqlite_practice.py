@@ -78,3 +78,17 @@ and t.TrackId = ii.TrackId
 and ii.InvoiceId = i.InvoiceId)
 GROUP BY Name;"""
 
+#----practice advanced sqlite
+n313_q1 ="""SELECT c.CustomerId, UPPER(c.City || ' ' || C.Country) AS CITY_COUNTRY FROM customers AS c; """
+
+n313_q2 ="""SELECT SUBSTRING(c.FirstName,1,4) ||''|| SUBSTRING(c.LastName,1,2) AS alies FROM customers AS c; """
+
+n313_q3 ="""SELECT e.EmployeeId, e.HireDate, e.LastName  FROM employees AS e
+WHERE DATE('2020-01-01') - e.HireDate >7
+ORDER BY e.LastName ASC;"""
+
+n313_q4 ="""SELECT c.FirstName ||''||c.LastName||''||
+(SELECT i.InvoiceId  FROM invoices AS i WHERE  i.CustomerId = c.CustomerId) AS newId
+FROM customers AS c;"""
+
+n313_q5 =""""""
