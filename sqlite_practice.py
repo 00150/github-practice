@@ -91,4 +91,6 @@ n313_q4 ="""SELECT c.FirstName ||''||c.LastName||''||
 (SELECT i.InvoiceId  FROM invoices AS i WHERE  i.CustomerId = c.CustomerId) AS newId
 FROM customers AS c;"""
 
-n313_q5 =""""""
+n313_q5 ="""SELECT t.Name FROM tracks AS t 
+WHERE t.AlbumId 
+IN (SELECT a.AlbumId FROM albums AS a """
