@@ -102,3 +102,19 @@ n313_part2 = """SELECT *, CASE
 	ElSE 'High' 
 END AS '월급 그룹'
 FROM Teacher AS t;"""
+
+
+n313_part3_1 = """SELECT s.teacher_id, s.student_id, s.ROWID AS '학생순서'
+FROM Student AS s;"""
+
+n313_part3_2 = """SELECT s.teacher_id, s.student_id, ROW_NUMBER()
+OVER(PARTITION BY s.teacher_id ORDER BY s.student_id) AS '선생님별 학생순서'
+FROM Student AS s"""
+
+n313_part3_3 = """
+SELECT s.student_id, S.age  AS '중앙값'
+FROM Student AS s
+ORDER BY s.age 
+LIMIT 1
+OFFSET (SELECT COUNT(*) FROM Student AS s) / 2; 
+"""
