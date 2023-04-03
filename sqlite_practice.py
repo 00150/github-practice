@@ -94,3 +94,11 @@ FROM customers AS c;"""
 n313_q5 ="""SELECT t.Name FROM tracks AS t 
 WHERE t.AlbumId 
 IN (SELECT a.AlbumId FROM albums AS a """
+
+# --
+n313_part2 = """SELECT *, CASE  
+	WHEN t.salary <2900 THEN 'Low'
+	WHEN t.salary <=3800 THEN 'Mid'
+	ElSE 'High' 
+END AS '월급 그룹'
+FROM Teacher AS t;"""
