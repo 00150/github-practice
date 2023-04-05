@@ -138,9 +138,9 @@ cur.execute("""DROP TABLE Albums_Part1""")
 
 # 5. 테이블 생성 -> DB_API
 cur.execute("""CREATE TABLE Albums_Part1(
-    AlbumId INTEGER NOT NULL PRIMARY KEY, 
+    AlbumId INTEGER PRIMARY KEY NOT NULL, 
     Title NVARCHAR(160),
-    Aritistid INTEGER)""")
+    ArtistId INTEGER)""")
 
 
 
@@ -161,10 +161,52 @@ list_data = [
 ]
 
 
+# 리스트 안의 데이터를 집어넣는 함수를 작성합시다.
+def Insert_values_in_table(list_data):
+    insert = "INSERT INTO Albums_Part1 (AlbumId, Title, ArtistId)"
+    for i in list_data[1:]:
+        cur.execute(f"{insert} VALUES (?,?,?);", i)
+    
+    conn.commit()
+    print('done!')
+    
+    
+
+# 함수를 실행하여 봅시다.
+Insert_values_in_table(list_data)
 
 
-def sample():
-    for i in list_data:
-        print(i)
-        
-breakpoint()
+
+
+#----n314 Part2 :  생성된-> DB : DB_API에 TABLE : Albums_Part2 생성 이후 아래의 데이터 집어넣기.
+
+#
+
+
+
+
+dictionary_data = {
+		"Columns":["AlbumId", "Title", "ArtistId"],
+		"1" : ["For Those About To Rock We Salute You",1],
+    	"2" : ["Balls to the Wall",2],
+    	"3" : ["Restless and Wild",2],
+    	"4" : ["Let There Be Rock",1],
+    	"5" : ["Big Ones",3],
+    	"6" : ["Jagged Little Pill",4],
+    	"7" : ["Facelift",5],
+    	"8" : ["Warner 25 Anos",6],
+    	"9" : ["Plays Metallica By Four Cellos",7],
+    	"10" : ["Audioslave",8]
+		}
+
+
+
+
+
+#----n314 Part3 : sqlite db 생성 -> DB_API (스키마 홈페이지 참조...) / 이후 데이터 넣기.
+
+
+
+
+#----n314 Part4 : sqlite db 생성 -> DB_API (스키마 홈페이지 참조...) / 이후 데이터 넣기.
+
