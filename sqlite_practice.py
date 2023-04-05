@@ -118,3 +118,53 @@ ORDER BY s.age
 LIMIT 1
 OFFSET (SELECT COUNT(*) FROM Student AS s) / 2; 
 """
+#----n314 Part1 : sqlite db 생성 -> DB_API (스키마 홈페이지 참조...) / 이후 데이터 넣기.
+
+
+# 1. sqlite 패키지 가져오기.
+import sqlite3
+
+# 2. DB 연결 위한 connection 객체 생성
+conn = sqlite3.connect('DB_API')
+
+# 3. 작업하기 위한 명령, cursor 객체 생성 (connection 안에)
+cur = conn.cursor()
+
+
+# 4. 테이블이 생성되어 있는 상태라면, 미리 테이블을 지워줍시다.
+cur.execute("""DROP TABLE Albums_Part1""")
+
+
+
+# 5. 테이블 생성 -> DB_API
+cur.execute("""CREATE TABLE Albums_Part1(
+    AlbumId INTEGER NOT NULL PRIMARY KEY, 
+    Title NVARCHAR(160),
+    Aritistid INTEGER)""")
+
+
+
+# ek
+
+list_data = [
+    ["AlbumId","Title","ArtistId"],
+    [1,"For Those About To Rock We Salute You",1],
+    [2,"Balls to the Wall",2],
+    [3,"Restless and Wild",2],
+    [4,"Let There Be Rock",1],
+    [5,"Big Ones",3],
+    [6,"Jagged Little Pill",4],
+    [7,"Facelift",5],
+    [8,"Warner 25 Anos",6],
+    [9,"Plays Metallica By Four Cellos",7],
+    [10,"Audioslave",8]
+]
+
+
+
+
+def sample():
+    for i in list_data:
+        print(i)
+        
+breakpoint()

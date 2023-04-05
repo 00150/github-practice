@@ -29,18 +29,24 @@ cur = conn.cursor()
 cur.execute("""DROP TABLE onepiece""")
 
 # 이후 위에서 지운 테이블을 다시 생성합니다.
-cur.execute("""CREATE TABLE onepiece(Onepiece_Id INTEGER PRIMARY KEY,
+cur.execute("""CREATE TABLE onepiece(Onepiece_Id INTEGER PRIMARY KEY NOT NULL,
             Name VARCHAR(128) NOT NULL,
             Position VARCHAR(128) NOT NULL)""")
 
 
 # 생성된 테이블에 데이터를 집어넣어봅시다, f-formating을 이용하여 진행합니다.
-insert = "INSERT INTO onepiece (Name, Position);" 
-query_1 = f"{insert} VALUES (Luffy, Captain)"
-query_2 = f"{insert} VALUES (Zoro, Vice Caption)"
-query_3 = f"{insert} VALUES (Nami, Mate)"
+insert = "INSERT INTO onepiece (Onepiece_Id, Name, Position)" 
+query_1 = f"{insert} VALUES (1, 'Luffy', 'Captain')"
+query_2 = f"{insert} VALUES (2, 'Zoro', 'Vice Caption')"
+query_3 = f"{insert} VALUES (3, 'Nami', 'Mate')"
 
 # 데이터를 추가하기 위해 commit을 날려줍시다. / 이때 commit 연결된 부분에 진행합니다.
+
+cur.execute(query_1)
+cur.execute(query_2)
+cur.execute(query_3)
+
 conn.commit()
 
 print('done!')
+
