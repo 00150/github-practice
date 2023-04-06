@@ -209,15 +209,35 @@ dictionary_data = {
 		}
 
 
-def xdd(dictonary_data):
+
+# method 1 : 잘라내기.
+def cut_add_data(dictonary_data):
     copy_data = dictionary_data.copy()
     del copy_data['Columns']
     for key, value in copy_data.items():
-        cur.execute("INSERT INTO Album_Part2 (Title, ArtistId) VALUES (?,?)",value)   
+        cur.execute("INSERT INTO Albums_Part2 (Title, ArtistId) VALUES (?,?)",value)   
     conn.commit()
     
+# 위 함수를 실행 -> cut_add_data(dictionary_data)
+
+
+# method 2 : 잘라내지 않기.
+def not_cut_add_data(dictionary_data):
     
-breakpoint()
+    
+    for i in range(1, len(dictionary_data)):
+        
+        # 키값이 '문자인 숫자'이므로 변환
+        key = str(i)
+        cur.execute("INSERT INTO Albums_Part2 (AlbumId, Title, ArtistId) VALUES (?,?,?)", 
+                    (i, dictionary_data[key][0], dictionary_data[key][1]))
+    
+    conn.commit()
+
+
+# 함수실행
+not_cut_add_data(dictionary_data)
+
 
 
 
