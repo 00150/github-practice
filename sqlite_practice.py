@@ -243,6 +243,93 @@ not_cut_add_data(dictionary_data)
 
 
 #----n314 Part3 : sqlite db 생성 -> DB_API (스키마 홈페이지 참조...) / 이후 데이터 넣기.
+#----n314 Part3 :  생성된-> DB : DB_API에 TABLE : Albums_Part3 생성 이후 아래의 데이터 집어넣기.
+
+
+# 테이블 삭제
+cur.execute('DROP TABLE Albums_Part3')
+
+
+# 테이블 생성.
+cur.execute("""CREATE TABLE Albums_Part3(
+    AlbumId INTEGER PRIMARY KEY NOT NULL, 
+    Title NVARCHAR(160),
+    ArtistId INTEGER)""")
+
+
+
+
+json_data = {
+"DATA": [
+	{
+		"AlbumId" : 1,
+		"Title" : "For Those About To Rock We Salute You",
+		"ArtistId" : 1
+	},
+	{
+		"AlbumId" : 2,
+		"Title" : "Balls to the Wall",
+		"ArtistId" : 2
+	},
+	{
+		"AlbumId" : 3,
+		"Title" : "Restless and Wild",
+		"ArtistId" : 2
+	},
+	{
+		"AlbumId" : 4,
+		"Title" : "Let There Be Rock",
+		"ArtistId" : 1
+	},
+	{
+		"AlbumId" : 5,
+		"Title" : "Big Ones",
+		"ArtistId" : 3
+	},
+	{
+		"AlbumId" : 6,
+		"Title" : "Jagged Little Pill",
+		"ArtistId" : 4
+	},
+	{
+		"AlbumId" : 7,
+		"Title" : "Facelift",
+		"ArtistId" : 5
+	},
+	{
+		"AlbumId" : 8,
+		"Title" : "Warner 25 Anos",
+		"ArtistId" : 6
+	},
+	{
+		"AlbumId" : 9,
+		"Title" : "Plays Metallica By Four Cellos",
+		"ArtistId" : 7
+	},
+	{
+		"AlbumId" : 10,
+		"Title" : "Audioslave",
+		"ArtistId" : 8
+	}
+]}
+
+
+def add_join(json_data):
+    
+    # 값만 가져오기.
+    data = json_data['DATA']
+    for i in range(len(data)):
+        cur.execute('INSERT INTO Albums_Part3 VALUES(?,?,?)', 
+ 	    (data[i]['AlbumId'], data[i]['Title'], data[i]['ArtistId']))
+    
+    conn.commit()
+    
+# add_join(json_data)
+
+
+
+
+
 
 
 
