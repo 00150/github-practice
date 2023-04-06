@@ -177,10 +177,19 @@ Insert_values_in_table(list_data)
 
 
 
-
 #----n314 Part2 :  생성된-> DB : DB_API에 TABLE : Albums_Part2 생성 이후 아래의 데이터 집어넣기.
 
-#
+
+# drop table : Albums_Part2
+cur.execute('DROP TABLE Albums_Part2')
+
+
+# create table : Albums_Part2
+cur.execute("""CREATE TABLE Albums_Part2(
+    AlbumId INTEGER PRIMARY KEY NOT NULL,
+    Title NVARCHAR(160),
+    ArtistId INTEGER)""")
+
 
 
 
@@ -199,6 +208,16 @@ dictionary_data = {
     	"10" : ["Audioslave",8]
 		}
 
+
+def xdd(dictonary_data):
+    copy_data = dictionary_data.copy()
+    del copy_data['Columns']
+    for key, value in copy_data.items():
+        cur.execute("INSERT INTO Album_Part2 (Title, ArtistId) VALUES (?,?)",value)   
+    conn.commit()
+    
+    
+breakpoint()
 
 
 
