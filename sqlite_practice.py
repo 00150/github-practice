@@ -324,8 +324,9 @@ def add_join(json_data):
     
     conn.commit()
     
-# add_join(json_data)
+add_join(json_data)
 
+cur.close()
 
 
 
@@ -335,4 +336,4 @@ def add_join(json_data):
 
 
 #----n314 Part4 : sqlite db 생성 -> DB_API (스키마 홈페이지 참조...) / 이후 데이터 넣기.
-
+#---- practice_postgre 파일에서 진행합니다.

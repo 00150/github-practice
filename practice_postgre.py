@@ -22,6 +22,10 @@ conn = psycopg2.connect(
     password = 'tqFfsJhbZ6beLfIMwlgPUFeHf0dE2Ays')
 
 
+
+
+
+
 # 이후 연결된 객체에 명령을 내릴 수 있는 커서를 생성합니다.
 cur = conn.cursor()
 
@@ -50,3 +54,76 @@ conn.commit()
 
 print('done!')
 
+
+
+"""
+Part 4
+클라우드 데이터베이스에 'passenger' 라는 테이블을 생성하고 titanic.csv 에 있는 데이터를 'passenger' 테이블로 옮깁니다.
+
+1. passenger 테이블의 필드를 알맞게 추가합니다 (필드명은 자유입니다).
+아래에는 각 필드에 해당하는 데이터 타입입니다.
+- Id : INT ( 0부터 시작하고, 테이블의 한 행마다 주여진 INT 형 숫자이며 csv에는 없습니다)
+- Survived: INT
+- Pclass: INT
+- Name: VARCHAR(128)
+- Sex: VARCHAR(12)
+- Age: FLOAT
+- Siblings/Spouses Aboard: INT
+- Parents/Children Aboard: INT
+- Fare: FLOAT
+
+2. psycopg2.connect 를 이용해 connection 변수가 데이터베이스와 연결할 수 있도록 다음 변수들에 알맞은 정보를 담습니다:
+- host: 데이터베이스 호스트 주소를 입력합니다.
+- user: 데이터베이스 유저 정보를 입력합니다.
+- password: 데이터베이스 비밀번호를 입력합니다.
+- database: 데이터베이스 이름을 입력합니다.
+
+3. passenger 테이블에 titanic.csv 에 있는 데이터를 옮깁니다.
+
+"""
+
+
+# 1. 테이블 삭제.
+cur.execute("""DROP TABLE passenger""")
+
+
+cur.execute("""CREATE TABLE passenger(
+    Passenger_Id INTEGER NOT NULL PRIMARY KEY,
+    Survived INTEGER,
+    Pclass INTEGER,
+    Name VARCHAR(128),
+    Sex VARCHAR(12),
+    Age FLOAT,
+    Siblings_Spouses_Aboard INTEGER,
+    Parents_Children_Aboard INTEGER,
+    Fare FLOAT)""")
+
+conn.commit()
+
+
+import csv
+
+# 데이터 읽어오기.
+f = open('titanic.csv', 'r')
+reader = csv.reader(f)
+
+# 데이터 리스트타입으로 변경
+data = list(reader)
+
+
+
+# 리스트형식으로 변경된 데이터를 슬라이싱합니다.(컬럼명 제거 (0번 idx))
+# 함수를 생성합니다.
+# 진행상황을 확인할 수 있는 라이브러리를 추가합시다.
+
+from tqdm import tqdm
+import time
+
+
+def insert_data_postgre():
+    for idx, row in tqdm(enumerate(data[1:]), desc = '데이터 삽입 진행중'):
+        cur.execute("""INSERT INTO passenger (Passenger_Id, Survived, Pclass, Name, Sex, Age, Siblings_Spouses_Aboard, Parents_Children_Aboard, Fare)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", (idx, row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
+    conn.commit()
+
+insert_data_postgre()
