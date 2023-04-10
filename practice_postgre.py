@@ -126,4 +126,8 @@ def insert_data_postgre():
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", (idx, row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
     conn.commit()
 
+
+
 insert_data_postgre()
+
+conn.close()
